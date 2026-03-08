@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { isValidSegment, SEGMENTS } from '@/lib/config/segments'
 import { getArticle, getArticleSlugs } from '@/lib/content/mdx'
 import { MDXRemote } from 'next-mdx-remote/rsc'
+import { mdxComponents } from '@/components/mdx/MDXComponents'
 import Link from 'next/link'
 
 export function generateStaticParams() {
@@ -63,7 +64,7 @@ export default async function ArticlePage({
       <hr style={{ marginBottom: '2rem' }} />
 
       <div>
-        <MDXRemote source={article.content} />
+        <MDXRemote source={article.content} components={mdxComponents} />
       </div>
 
       {article.application && article.application.length > 0 && (

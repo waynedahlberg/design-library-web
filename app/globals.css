@@ -1,129 +1,334 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tailwindcss';
 
-@custom-variant dark (&:is(.dark *));
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+@theme {
+  --font-serif: var(--font-serif);
   --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
-}
-
-:root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.58 0.22 27);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.87 0.00 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.371 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --font-mono: var(--font-mono);
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  /* ─────────────────────────────────────────────
+     DEFAULT (DARK)
+     ───────────────────────────────────────────── */
+  :root {
+    /* ── Fonts ── */
+    --font-serif: var(--font-serif), Georgia, serif;
+    --font-sans:
+      var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont,
+      'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+      'Helvetica Neue', sans-serif;
+    --font-mono: var(--font-mono), monospace;
+
+    /* ── Sand (UI gray base) ── */
+    --sand-1: #111110ff;
+    --sand-2: #191918ff;
+    --sand-3: #222221ff;
+    --sand-4: #2a2a28ff;
+    --sand-5: #31312eff;
+    --sand-6: #3b3a37ff;
+    --sand-7: #494844ff;
+    --sand-8: #62605bff;
+    --sand-9: #6f6d66ff;
+    --sand-10: #7c7b74ff;
+    --sand-11: #b5b3adff;
+    --sand-12: #eeeeecff;
+
+    /* ── Purple → Principles of Design ── */
+    --principles-1: #110f1cff;
+    --principles-2: #171527ff;
+    --principles-3: #271d4bff;
+    --principles-4: #342168ff;
+    --principles-5: #3d2a77ff;
+    --principles-6: #483586ff;
+    --principles-7: #56419bff;
+    --principles-8: #684fbaff;
+    --principles-9: #a28efdff;
+    --principles-10: #9782f0ff;
+    --principles-11: #b6a5ffff;
+    --principles-12: #e1ddffff;
+
+    /* ── Orange → Elements of Design ── */
+    --elements-1: #15100eff;
+    --elements-2: #1e1512ff;
+    --elements-3: #331d14ff;
+    --elements-4: #471f0eff;
+    --elements-5: #552815ff;
+    --elements-6: #653523ff;
+    --elements-7: #7c4631ff;
+    --elements-8: #9f593fff;
+    --elements-9: #f37948ff;
+    --elements-10: #e66d3cff;
+    --elements-11: #ff9d74ff;
+    --elements-12: #ffddcfff;
+
+    /* ── Green → Laws of UX ── */
+    --ux-1: #0b130eff;
+    --ux-2: #121a14ff;
+    --ux-3: #172b1dff;
+    --ux-4: #143c23ff;
+    --ux-5: #194a2cff;
+    --ux-6: #1d5935ff;
+    --ux-7: #216a3fff;
+    --ux-8: #237d49ff;
+    --ux-9: #22c36eff;
+    --ux-10: #00b763ff;
+    --ux-11: #47d682ff;
+    --ux-12: #b1f5c5ff;
+
+    /* ── Blue → Patterns & Components ── */
+    --patterns-1: #0a111dff;
+    --patterns-2: #101826ff;
+    --patterns-3: #122649ff;
+    --patterns-4: #102f65ff;
+    --patterns-5: #183b77ff;
+    --patterns-6: #234889ff;
+    --patterns-7: #2e589fff;
+    --patterns-8: #3769beff;
+    --patterns-9: #77a9feff;
+    --patterns-10: #6c9ef2ff;
+    --patterns-11: #82b4ffff;
+    --patterns-12: #cee2ffff;
+
+    /* ── Yellow → Insights & Reference ── */
+    --insights-1: #13110bff;
+    --insights-2: #1c1810ff;
+    --insights-3: #2b220bff;
+    --insights-4: #3a2a00ff;
+    --insights-5: #473400ff;
+    --insights-6: #54410fff;
+    --insights-7: #675320ff;
+    --insights-8: #836a2bff;
+    --insights-9: #fdca3fff;
+    --insights-10: #f2c030ff;
+    --insights-11: #ffce44ff;
+    --insights-12: #fce8b9ff;
+
+    /* ── Red — reserved ── */
+    --red-1: #160f0fff;
+    --red-2: #1e1515ff;
+    --red-3: #39151aff;
+    --red-4: #4d151fff;
+    --red-5: #5d1c28ff;
+    --red-6: #6e2833ff;
+    --red-7: #873643ff;
+    --red-8: #b14758ff;
+    --red-9: #f96e83ff;
+    --red-10: #ec6278ff;
+    --red-11: #ff8d9dff;
+    --red-12: #ffd3d6ff;
+
+    /* ── Semantic text tokens ── */
+    --color-primary: var(--sand-12);
+    --color-secondary: var(--sand-11);
+    --color-tertiary: var(--sand-9);
+    --color-disabled: var(--sand-6);
+
+    /* ── Default segment fallback (Sand) ── */
+    --segment-1: var(--sand-1);
+    --segment-2: var(--sand-2);
+    --segment-3: var(--sand-3);
+    --segment-4: var(--sand-4);
+    --segment-5: var(--sand-5);
+    --segment-6: var(--sand-6);
+    --segment-7: var(--sand-7);
+    --segment-8: var(--sand-8);
+    --segment-9: var(--sand-9);
+    --segment-10: var(--sand-10);
+    --segment-11: var(--sand-11);
+    --segment-12: var(--sand-12);
   }
-  body {
-    @apply bg-background text-foreground;
+
+  /* ─────────────────────────────────────────────
+     LIGHT MODE — manual toggle (.light on <html>)
+     ───────────────────────────────────────────── */
+  :root.light {
+    /* ── Sand ── */
+    --sand-1: #fdfdfcff;
+    --sand-2: #f9f9f8ff;
+    --sand-3: #f1f0efff;
+    --sand-4: #e9e8e6ff;
+    --sand-5: #e2e1deff;
+    --sand-6: #dad9d6ff;
+    --sand-7: #cfcecaff;
+    --sand-8: #bcbbb5ff;
+    --sand-9: #8d8d86ff;
+    --sand-10: #82827cff;
+    --sand-11: #63635eff;
+    --sand-12: #21201cff;
+
+    /* ── Purple → Principles of Design ── */
+    --principles-1: #fcfcffff;
+    --principles-2: #f9f8ffff;
+    --principles-3: #f2f0ffff;
+    --principles-4: #e8e4ffff;
+    --principles-5: #ded8ffff;
+    --principles-6: #d1c8ffff;
+    --principles-7: #bfb2ffff;
+    --principles-8: #a793ffff;
+    --principles-9: #a28efdff;
+    --principles-10: #9782f0ff;
+    --principles-11: #674fb8ff;
+    --principles-12: #341c6cff;
+
+    /* ── Orange → Elements of Design ── */
+    --elements-1: #fefcfbff;
+    --elements-2: #fff6f3ff;
+    --elements-3: #ffebe3ff;
+    --elements-4: #ffd9c7ff;
+    --elements-5: #ffcbb3ff;
+    --elements-6: #ffbea5ff;
+    --elements-7: #f2ac92ff;
+    --elements-8: #e69576ff;
+    --elements-9: #f37948ff;
+    --elements-10: #e76c3aff;
+    --elements-11: #c7521eff;
+    --elements-12: #552f20ff;
+
+    /* ── Green → Laws of UX ── */
+    --ux-1: #fafffbff;
+    --ux-2: #f3fcf5ff;
+    --ux-3: #e3f9e8ff;
+    --ux-4: #d1f4daff;
+    --ux-5: #bbedc9ff;
+    --ux-6: #9fe3b3ff;
+    --ux-7: #76d596ff;
+    --ux-8: #20c26dff;
+    --ux-9: #22c36eff;
+    --ux-10: #00b763ff;
+    --ux-11: #008439ff;
+    --ux-12: #0e3f22ff;
+
+    /* ── Blue → Patterns & Components ── */
+    --patterns-1: #fcfdffff;
+    --patterns-2: #f5faffff;
+    --patterns-3: #eaf3ffff;
+    --patterns-4: #dbebffff;
+    --patterns-5: #c9e1ffff;
+    --patterns-6: #b3d3ffff;
+    --patterns-7: #9ac1ffff;
+    --patterns-8: #76a8fdff;
+    --patterns-9: #77a9feff;
+    --patterns-10: #6c9ef2ff;
+    --patterns-11: #3a68b7ff;
+    --patterns-12: #0e2e67ff;
+
+    /* ── Yellow → Insights & Reference ── */
+    --insights-1: #fefdfaff;
+    --insights-2: #fffaeaff;
+    --insights-3: #fff4c2ff;
+    --insights-4: #ffeba0ff;
+    --insights-5: #ffe07fff;
+    --insights-6: #f8d37aff;
+    --insights-7: #e6c36fff;
+    --insights-8: #d3ac47ff;
+    --insights-9: #ffd02fff;
+    --insights-10: #fac73bff;
+    --insights-11: #977100ff;
+    --insights-12: #453a21ff;
+
+    /* ── Red — reserved ── */
+    --red-1: #fffcfcff;
+    --red-2: #fff6f7ff;
+    --red-3: #ffe8eaff;
+    --red-4: #ffd8dcff;
+    --red-5: #ffc8ceff;
+    --red-6: #ffb4bdff;
+    --red-7: #ff9aa7ff;
+    --red-8: #ff798dff;
+    --red-9: #f96e83ff;
+    --red-10: #ec6278ff;
+    --red-11: #c23c56ff;
+    --red-12: #72001fff;
   }
+
+  /* ─────────────────────────────────────────────
+     PER-SEGMENT COLOR MAPPING
+     Keys off data-segment attr set in route layout
+     ───────────────────────────────────────────── */
+  [data-segment='principles'] {
+    --segment-1: var(--principles-1);
+    --segment-2: var(--principles-2);
+    --segment-3: var(--principles-3);
+    --segment-4: var(--principles-4);
+    --segment-5: var(--principles-5);
+    --segment-6: var(--principles-6);
+    --segment-7: var(--principles-7);
+    --segment-8: var(--principles-8);
+    --segment-9: var(--principles-9);
+    --segment-10: var(--principles-10);
+    --segment-11: var(--principles-11);
+    --segment-12: var(--principles-12);
+  }
+
+  [data-segment='elements'] {
+    --segment-1: var(--elements-1);
+    --segment-2: var(--elements-2);
+    --segment-3: var(--elements-3);
+    --segment-4: var(--elements-4);
+    --segment-5: var(--elements-5);
+    --segment-6: var(--elements-6);
+    --segment-7: var(--elements-7);
+    --segment-8: var(--elements-8);
+    --segment-9: var(--elements-9);
+    --segment-10: var(--elements-10);
+    --segment-11: var(--elements-11);
+    --segment-12: var(--elements-12);
+  }
+
+  [data-segment='ux'] {
+    --segment-1: var(--ux-1);
+    --segment-2: var(--ux-2);
+    --segment-3: var(--ux-3);
+    --segment-4: var(--ux-4);
+    --segment-5: var(--ux-5);
+    --segment-6: var(--ux-6);
+    --segment-7: var(--ux-7);
+    --segment-8: var(--ux-8);
+    --segment-9: var(--ux-9);
+    --segment-10: var(--ux-10);
+    --segment-11: var(--ux-11);
+    --segment-12: var(--ux-12);
+  }
+
+  [data-segment='patterns'] {
+    --segment-1: var(--patterns-1);
+    --segment-2: var(--patterns-2);
+    --segment-3: var(--patterns-3);
+    --segment-4: var(--patterns-4);
+    --segment-5: var(--patterns-5);
+    --segment-6: var(--patterns-6);
+    --segment-7: var(--patterns-7);
+    --segment-8: var(--patterns-8);
+    --segment-9: var(--patterns-9);
+    --segment-10: var(--patterns-10);
+    --segment-11: var(--patterns-11);
+    --segment-12: var(--patterns-12);
+  }
+
+  [data-segment='insights'] {
+    --segment-1: var(--insights-1);
+    --segment-2: var(--insights-2);
+    --segment-3: var(--insights-3);
+    --segment-4: var(--insights-4);
+    --segment-5: var(--insights-5);
+    --segment-6: var(--insights-6);
+    --segment-7: var(--insights-7);
+    --segment-8: var(--insights-8);
+    --segment-9: var(--insights-9);
+    --segment-10: var(--insights-10);
+    --segment-11: var(--insights-11);
+    --segment-12: var(--insights-12);
+  }
+
+  /* ─────────────────────────────────────────────
+     BASE HTML STYLES
+     ───────────────────────────────────────────── */
   html {
-    @apply font-sans;
+    color: var(--sand-12);
+    background-color: var(--sand-1);
+  }
+
+  * {
+    box-sizing: border-box;
   }
 }
