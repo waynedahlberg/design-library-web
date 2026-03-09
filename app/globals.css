@@ -4,6 +4,7 @@
   --font-serif: var(--font-serif);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
+  --breakpoint-nav: 800px;
 }
 
 @layer base {

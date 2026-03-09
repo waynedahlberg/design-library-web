@@ -3,25 +3,34 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { ArrowLeft, X } from 'lucide-react'
 import { SEGMENTS } from '@/lib/config/segments'
 import { ThemeToggle } from '@/components/layout/ThemeToggle'
 import { cn } from '@/lib/utils'
+import { Container } from '@/components/layout/Container'
 
-import { Container } from './Container'
+function useNavContext() {
+  const pathname = usePathname()
+  const activeSegment = SEGMENTS.find((s) => pathname.startsWith(`/${s.slug}`))
+  const isArticlePage = activeSegment
+    ? pathname !== `/${activeSegment.slug}`
+    : false
+  const backHref = activeSegment ? `/${activeSegment.slug}` : '/'
+  return { pathname, activeSegment, isArticlePage, backHref }
+}
 
 export function SiteNav() {
-  const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
-
-  // const activeSegment = SEGMENTS.find((s) => pathname.startsWith(`/${s.slug}`))
+  const { pathname, activeSegment, isArticlePage, backHref } = useNavContext()
 
   return (
     <>
-      {/* ── Desktop nav ── */}
-      <header className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--sand-4)] bg-[var(--sand-1)]">
+      {/* ── Nav bar ── */}
+      <header className="fixed top-0 left-0 right-0 z-50">
         <Container as="nav" className="h-12 flex items-center justify-between">
-          <div className="hidden md:flex items-center gap-8">
+
+          {/* ── Desktop: segment links centered ── */}
+          <div className="hidden nav:flex w-full items-center justify-between">
             {SEGMENTS.map((seg) => {
               const isActive = pathname.startsWith(`/${seg.slug}`)
               return (
@@ -29,10 +38,10 @@ export function SiteNav() {
                   key={seg.slug}
                   href={`/${seg.slug}`}
                   className={cn(
-                    'text-sm transition-colors',
+                    'text-sm font-normal transition-colors',
                     isActive
-                      ? 'text-[var(--sand-12)]'
-                      : 'text-[var(--sand-9)] hover:text-[var(--sand-11)]'
+                      ? 'text-[var(--segment-12)]'
+                      : 'text-[var(--segment-8)] hover:text-[var(--segment-11)]'
                   )}
                 >
                   {seg.navLabel}
@@ -41,40 +50,62 @@ export function SiteNav() {
             })}
           </div>
 
-          {/* Mobile — left side home link, right side controls */}
-          <Link
-            href="/"
-            className="md:hidden text-sm font-medium text-[var(--sand-11)]"
-          >
-            Design Library
-          </Link>
+          {/* ── Mobile: left side ── */}
+          <div className="nav:hidden flex items-center">
+            {isArticlePage ? (
+              // Circular back button on article pages
+              <Link
+                href={backHref}
+                className="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--segment-4)] text-[var(--segment-11)] hover:bg-[var(--segment-5)] transition-colors"
+                aria-label="Back"
+              >
+                <ArrowLeft size={20} strokeWidth={2.5} />
+              </Link>
+            ) : (
+              // Home link on segment index pages
+              <Link
+                href="/"
+                className="text-sm text-[var(--segment-8)] hover:text-[var(--segment-11)] transition-colors"
+              >
+                Design Library
+              </Link>
+            )}
+          </div>
 
-          <div className="flex items-center gap-3">
+          {/* ── Mobile: right side — theme toggle + hamburger ── */}
+          <div className="nav:hidden flex items-center gap-2">
             <ThemeToggle />
             <button
-              className="md:hidden text-[var(--sand-11)] hover:text-[var(--sand-12)] transition-colors"
+              className="w-12 h-12 flex flex-col items-center justify-center gap-[5px] text-[var(--segment-11)]"
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
             >
-              <Menu size={20} />
+              <span className="w-5 h-[3px] rounded-full bg-current" />
+              <span className="w-5 h-[3px] rounded-full bg-current" />
+              <span className="w-5 h-[3px] rounded-full bg-current" />
             </button>
           </div>
+
         </Container>
       </header>
 
       {/* ── Mobile menu overlay ── */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-[100] bg-[var(--sand-1)] flex flex-col">
-          <div className="flex items-center justify-end px-6 h-12 border-b border-[var(--sand-4)]">
+        <div className="fixed inset-0 z-[100] bg-[var(--segment-2)] flex flex-col">
+
+          {/* Close button */}
+          <div className="h-12 flex items-center justify-end px-6">
             <button
               onClick={() => setMobileOpen(false)}
-              className="text-[var(--sand-11)] hover:text-[var(--sand-12)] transition-colors"
+              className="w-12 h-12 flex items-center justify-center text-[var(--segment-9)] hover:text-[var(--segment-11)] transition-colors"
               aria-label="Close menu"
             >
-              <X size={20} />
+              <X size={20} strokeWidth={2.5} />
             </button>
           </div>
-          <nav className="flex flex-col px-6 pt-10 gap-8">
+
+          {/* Nav links */}
+          <nav className="flex flex-col gap-8 px-8 pt-12">
             {SEGMENTS.map((seg) => {
               const isActive = pathname.startsWith(`/${seg.slug}`)
               return (
@@ -83,10 +114,10 @@ export function SiteNav() {
                   href={`/${seg.slug}`}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
-                    'font-serif text-3xl transition-colors',
+                    'font-serif text-2xl leading-tight transition-colors',
                     isActive
-                      ? 'text-[var(--sand-12)]'
-                      : 'text-[var(--sand-9)] hover:text-[var(--sand-11)]'
+                      ? 'text-[var(--color-primary)]'
+                      : 'text-[var(--color-primary)] opacity-50 hover:opacity-100'
                   )}
                 >
                   {seg.navLabel}
@@ -94,10 +125,11 @@ export function SiteNav() {
               )
             })}
           </nav>
+
         </div>
       )}
 
-      {/* ── Spacer so content clears the fixed nav ── */}
+      {/* ── Spacer ── */}
       <div className="h-12" />
     </>
   )
