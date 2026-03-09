@@ -3,7 +3,9 @@ import { isValidSegment, SEGMENTS } from '@/lib/config/segments'
 import { getArticle, getArticleSlugs } from '@/lib/content/mdx'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { mdxComponents } from '@/components/mdx/MDXComponents'
-import Link from 'next/link'
+import { ArticleHeader } from '@/components/content/ArticleHeader'
+import { TagList } from '@/components/content/TagList'
+import { ReferencesSection } from '@/components/content/ReferencesSection'
 
 export function generateStaticParams() {
   return SEGMENTS.flatMap((seg) =>
@@ -40,41 +42,27 @@ export default async function ArticlePage({
   const article = await getArticle(segment, slug).catch(() => notFound())
 
   return (
-    <main style={{ padding: '2rem', maxWidth: '720px' }}>
-      <Link href={`/${segment}`} style={{ fontSize: '0.875rem' }}>
-        ← Back to {segment}
-      </Link>
+    <div className="max-w-3xl mx-auto px-6 py-12">
+      <ArticleHeader article={article} />
+      <TagList tags={article.tags} />
 
-      <p style={{ textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '0.1em', marginTop: '2rem' }}>
-        {segment}
-      </p>
-      <h1 className="font-serif text-5xl text-[var(--segment-12)] leading-tight">{article.title}</h1>
-      <p style={{ marginBottom: '1rem', opacity: 0.7 }} className="text-base text-[var(--sand-10)]">{article.description}</p>
-
-      {article.tags.length > 0 && (
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
-          {article.tags.map((tag) => (
-            <span key={tag} style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', border: '1px solid currentColor', borderRadius: '4px' }}>
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
-
-      <hr style={{ marginBottom: '2rem' }} />
-
-      <div>
+      {/* ── Prose body ── */}
+      <div className="mb-16">
         <MDXRemote source={article.content} components={mdxComponents} />
       </div>
 
+      {/* ── Application blocks ── */}
       {article.application && article.application.length > 0 && (
-        <section style={{ marginTop: '3rem' }}>
-          <h2 style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>
+        <section className="mt-16 pt-10 border-t border-[var(--sand-4)]">
+          <h2 className="text-xs uppercase tracking-widest text-[var(--sand-8)] mb-6">
             Application
           </h2>
-          <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', listStyle: 'none', padding: 0 }}>
+          <ul className="flex flex-col gap-4">
             {article.application.map((item, i) => (
-              <li key={i} style={{ padding: '1rem', border: '1px solid currentColor', borderRadius: '6px' }}>
+              <li
+                key={i}
+                className="text-sm leading-6 text-[var(--sand-10)] border border-[var(--sand-4)] rounded-lg px-5 py-4 bg-[var(--sand-2)]"
+              >
                 {item}
               </li>
             ))}
@@ -82,22 +70,7 @@ export default async function ArticlePage({
         </section>
       )}
 
-      {article.references && article.references.length > 0 && (
-        <section style={{ marginTop: '3rem' }}>
-          <h2 style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>
-            References
-          </h2>
-          <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            {article.references.map((ref) => (
-              <li key={ref.url}>
-                <a href={ref.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.875rem' }}>
-                  {ref.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-    </main>
+      <ReferencesSection references={article.references ?? []} />
+    </div>
   )
 }

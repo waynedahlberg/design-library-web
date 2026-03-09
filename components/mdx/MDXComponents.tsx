@@ -17,7 +17,7 @@ export const mdxComponents: MDXComponents = {
     </h2>
   ),
   h3: ({ children }) => (
-    <h3 className="font-serif text-xl mt-8 mb-3 text-[var(--segment-11)]">
+    <h3 className="font-sans text-xl mt-8 mb-3 text-[var(--segment-11)]">
       {children}
     </h3>
   ),

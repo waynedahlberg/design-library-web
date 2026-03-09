@@ -12,7 +12,7 @@ export function SiteNav() {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  const activeSegment = SEGMENTS.find((s) => pathname.startsWith(`/${s.slug}`))
+  // const activeSegment = SEGMENTS.find((s) => pathname.startsWith(`/${s.slug}`))
 
   return (
     <>
