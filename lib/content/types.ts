@@ -12,6 +12,7 @@ export interface ArticleFrontmatter {
   description: string;
   tags: string[];
   cover?: string;
+  coverKey?: string;
   application?: string[];
   references?: ArticleReference[];
   order?: number;

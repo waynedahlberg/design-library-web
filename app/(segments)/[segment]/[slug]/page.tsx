@@ -6,7 +6,6 @@ import { mdxComponents } from '@/components/mdx/MDXComponents'
 import { ArticleHeader } from '@/components/content/ArticleHeader'
 import { TagList } from '@/components/content/TagList'
 import { ReferencesSection } from '@/components/content/ReferencesSection'
-
 import { Container } from '@/components/layout/Container'
 
 export function generateStaticParams() {
@@ -44,35 +43,38 @@ export default async function ArticlePage({
   const article = await getArticle(segment, slug).catch(() => notFound())
 
   return (
-    <Container narrow className="py-12">
+    <>
       <ArticleHeader article={article} />
-      <TagList tags={article.tags} />
 
-      {/* ── Prose body ── */}
-      <div className="mb-16">
-        <MDXRemote source={article.content} components={mdxComponents} />
-      </div>
+      <Container narrow className="py-16">
+        <TagList tags={article.tags} />
 
-      {/* ── Application blocks ── */}
-      {article.application && article.application.length > 0 && (
-        <section className="mt-16 pt-10 border-t border-[var(--sand-4)]">
-          <h2 className="text-xs uppercase tracking-widest text-[var(--sand-8)] mb-6">
-            Application
-          </h2>
-          <ul className="flex flex-col gap-4">
-            {article.application.map((item, i) => (
-              <li
-                key={i}
-                className="text-sm leading-6 text-[var(--sand-10)] border border-[var(--sand-4)] rounded-lg px-5 py-4 bg-[var(--sand-2)]"
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+        {/* ── Prose body ── */}
+        <div className="mb-16">
+          <MDXRemote source={article.content} components={mdxComponents} />
+        </div>
 
-      <ReferencesSection references={article.references ?? []} />
-    </Container>
+        {/* ── Application blocks ── */}
+        {article.application && article.application.length > 0 && (
+          <section className="mt-16 pt-10 border-t border-[var(--sand-4)]">
+            <h2 className="text-xs uppercase tracking-widest text-[var(--sand-8)] mb-6">
+              Application
+            </h2>
+            <ul className="flex flex-col gap-4">
+              {article.application.map((item, i) => (
+                <li
+                  key={i}
+                  className="text-sm leading-6 text-[var(--sand-10)] border border-[var(--sand-4)] rounded-lg px-5 py-4 bg-[var(--sand-2)]"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <ReferencesSection references={article.references ?? []} />
+      </Container>
+    </>
   )
 }
