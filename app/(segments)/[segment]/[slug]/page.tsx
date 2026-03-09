@@ -3,7 +3,9 @@ import { isValidSegment, SEGMENTS } from '@/lib/config/segments'
 import { getArticle, getArticleSlugs } from '@/lib/content/mdx'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { mdxComponents } from '@/components/mdx/MDXComponents'
-import Link from 'next/link'
+import { ArticleHeader } from '@/components/content/ArticleHeader'
+import { ReferencesSection } from '@/components/content/ReferencesSection'
+import { Container } from '@/components/layout/Container'
 
 export function generateStaticParams() {
   return SEGMENTS.flatMap((seg) =>
@@ -40,64 +42,47 @@ export default async function ArticlePage({
   const article = await getArticle(segment, slug).catch(() => notFound())
 
   return (
-    <main style={{ padding: '2rem', maxWidth: '720px' }}>
-      <Link href={`/${segment}`} style={{ fontSize: '0.875rem' }}>
-        ← Back to {segment}
-      </Link>
+    <>
+      <ArticleHeader article={article} />
 
-      <p style={{ textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '0.1em', marginTop: '2rem' }}>
-        {segment}
-      </p>
-      <h1 className="font-serif text-5xl text-[var(--segment-12)] leading-tight">{article.title}</h1>
-      <p style={{ marginBottom: '1rem', opacity: 0.7 }} className="text-base text-[var(--sand-10)]">{article.description}</p>
+      <Container fluid className="max-w-[1080px] py-8">
+        {/* ── Two-column on desktop, stacked on mobile ── */}
+        <div className="mt-10 flex flex-col nav:grid nav:grid-cols-[1fr_400px] nav:gap-16">
 
-      {article.tags.length > 0 && (
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
-          {article.tags.map((tag) => (
-            <span key={tag} style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', border: '1px solid currentColor', borderRadius: '4px' }}>
-              {tag}
-            </span>
-          ))}
+          {/* ── Left: prose body ── */}
+          <div>
+            <h2 className="text-xs uppercase tracking-widest text-[var(--sand-8)] mb-8">
+              Summary
+            </h2>
+            <MDXRemote source={article.content} components={mdxComponents} />
+          </div>
+
+          {/* ── Right: application + references ── */}
+          <div className="flex flex-col gap-12 mt-8 sm:mt-0 pt-[2.125rem] sm:pt-0">
+
+            {article.application && article.application.length > 0 && (
+              <section>
+                <h2 className="text-xs uppercase tracking-widest text-[var(--sand-8)] mb-8">
+                  Application
+                </h2>
+                <ul className="flex flex-col gap-4">
+                  {article.application.map((item, i) => (
+                    <li
+                      key={i}
+                      className="text-sm leading-6 text-[var(--sand-11)] px-5 py-4 bg-[var(--sand-2)]"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            <ReferencesSection references={article.references ?? []} />
+
+          </div>
         </div>
-      )}
-
-      <hr style={{ marginBottom: '2rem' }} />
-
-      <div>
-        <MDXRemote source={article.content} components={mdxComponents} />
-      </div>
-
-      {article.application && article.application.length > 0 && (
-        <section style={{ marginTop: '3rem' }}>
-          <h2 style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>
-            Application
-          </h2>
-          <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', listStyle: 'none', padding: 0 }}>
-            {article.application.map((item, i) => (
-              <li key={i} style={{ padding: '1rem', border: '1px solid currentColor', borderRadius: '6px' }}>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {article.references && article.references.length > 0 && (
-        <section style={{ marginTop: '3rem' }}>
-          <h2 style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>
-            References
-          </h2>
-          <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            {article.references.map((ref) => (
-              <li key={ref.url}>
-                <a href={ref.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.875rem' }}>
-                  {ref.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-    </main>
+      </Container>
+    </>
   )
 }

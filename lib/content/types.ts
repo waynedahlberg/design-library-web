@@ -1,4 +1,4 @@
-import type { SegmentSlug } from '@/lib/config/segments';
+import type { SegmentSlug } from '../config/segments';
 
 export interface ArticleReference {
   label: string;
@@ -12,6 +12,7 @@ export interface ArticleFrontmatter {
   description: string;
   tags: string[];
   cover?: string;
+  coverKey?: string;
   application?: string[];
   references?: ArticleReference[];
   order?: number;
@@ -28,10 +29,24 @@ export interface Article extends ArticleMeta {
   content: string;
 }
 
+// Structured content blocks — parsed from MDX body for iOS native rendering
+export type ContentBlock =
+  | { type: 'heading'; level: 2 | 3; text: string }
+  | { type: 'paragraph'; text: string }
+  | { type: 'list'; ordered: boolean; items: string[] }
+  | { type: 'callout'; calloutType: string; title?: string; text: string }
+  | { type: 'interactive'; id: string }
+  | { type: 'diagram'; id: string; caption?: string }
+
+// Manifest article entry — metadata + blocks for iOS
+export interface ArticleManifestEntry extends ArticleMeta {
+  blocks: ContentBlock[];
+}
+
 // Shape of /public/api/manifest.json
 export interface Manifest {
   generatedAt: string;
   segments: {
-    [segment: string]: ArticleMeta[];
+    [segment: string]: ArticleManifestEntry[];
   };
 }

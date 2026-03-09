@@ -12,12 +12,12 @@ export const mdxComponents: MDXComponents = {
     </h1>
   ),
   h2: ({ children }) => (
-    <h2 className="font-sans text-2xl mt-12 mb-4 text-[var(--segment-12)]">
+    <h2 className="font-display text-2xl mt-12 mb-4 text-[var(--sand-10)]">
       {children}
     </h2>
   ),
   h3: ({ children }) => (
-    <h3 className="font-serif text-xl mt-8 mb-3 text-[var(--segment-11)]">
+    <h3 className="font-sans text-xl mt-8 mb-3 text-[var(--segment-11)]">
       {children}
     </h3>
   ),

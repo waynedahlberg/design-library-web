@@ -42,3 +42,5 @@ next-env.d.ts
 
 # Generated at build time
 /public/api/manifest.json
+
+# ignore fonts
