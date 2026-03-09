@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import { SegmentProvider } from "@/components/providers/SegmentProvider";
 import "./globals.css";
 
 import { SiteNav } from "@/components/layout/SiteNav";
@@ -40,11 +41,13 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased`}>
       <body className={geistSans.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" themes={['dark', 'light']}>
-          <SiteNav />
-          <main className="min-h-screen">
-            {children}
-          </main>
-          <SiteFooter />
+          <SegmentProvider>
+            <SiteNav />
+            <main className="min-h-screen">
+              {children}
+            </main>
+            <SiteFooter />
+          </SegmentProvider>
         </ThemeProvider>
       </body>
     </html>
