@@ -6,8 +6,13 @@ import { CodeBlock } from './CodeBlock'
 
 export const mdxComponents: MDXComponents = {
   // ── Block elements ──
+  h1: ({ children }) => (
+    <h1 className="font-serif text-4xl mt-16 mb-6 text-[var(--segment-12)] leading-tight">
+      {children}
+    </h1>
+  ),
   h2: ({ children }) => (
-    <h2 className="font-serif text-2xl mt-12 mb-4 text-[var(--segment-12)]">
+    <h2 className="font-sans text-2xl mt-12 mb-4 text-[var(--segment-12)]">
       {children}
     </h2>
   ),

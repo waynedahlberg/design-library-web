@@ -17,7 +17,7 @@ export interface SegmentConfig {
 export const SEGMENTS: SegmentConfig[] = [
   {
     slug: 'principles',
-    label: 'Design Principles',
+    label: 'Principles of Design',
     navLabel: 'Principles of Design',
     description:
       'Foundational thinking that guides good design decisions.',
@@ -26,7 +26,7 @@ export const SEGMENTS: SegmentConfig[] = [
   },
   {
     slug: 'elements',
-    label: 'Design Elements',
+    label: 'Elements of Design',
     navLabel: 'Elements of Design',
     description: 'The raw materials of visual design.',
     color: 'elements',

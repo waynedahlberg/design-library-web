@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getSegment, isValidSegment, SEGMENTS } from '@/lib/config/segments'
 import { getAllArticlesForSegment } from '@/lib/content/mdx'
+import { SegmentHeader } from '@/components/layout/SegmentHeader'
 import Link from 'next/link'
 
 export function generateStaticParams() {
@@ -33,22 +34,23 @@ export default async function SegmentPage({
   const articles = getAllArticlesForSegment(seg.slug)
 
   return (
-    <main style={{ padding: '2rem' }}>
-      <p style={{ textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '0.1em' }}>
-        {seg.navLabel}
-      </p>
-      <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>{seg.label}</h1>
-      <p style={{ marginBottom: '2rem' }}>{seg.description}</p>
-      <p style={{ marginBottom: '1rem', opacity: 0.6 }}>{articles.length} articles</p>
-      <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+    <div className="max-w-7xl mx-auto px-6 py-12">
+      <SegmentHeader segment={seg} count={articles.length} />
+      <ul className="flex flex-col gap-4">
         {articles.map((article) => (
           <li key={article.slug}>
-            <Link href={article.href}>
-              {article.title} — {article.description}
+            <Link
+              href={article.href}
+              className="text-[var(--sand-11)] hover:text-[var(--sand-12)] transition-colors"
+            >
+              <span className="font-serif text-xl">{article.title}</span>
+              <span className="text-sm text-[var(--sand-8)] ml-3">
+                {article.description}
+              </span>
             </Link>
           </li>
         ))}
       </ul>
-    </main>
+    </div>
   )
 }

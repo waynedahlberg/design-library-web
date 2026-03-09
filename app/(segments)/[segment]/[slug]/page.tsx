@@ -48,8 +48,8 @@ export default async function ArticlePage({
       <p style={{ textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '0.1em', marginTop: '2rem' }}>
         {segment}
       </p>
-      <h1 style={{ fontSize: '2rem', margin: '0.5rem 0' }}>{article.title}</h1>
-      <p style={{ marginBottom: '1rem', opacity: 0.7 }}>{article.description}</p>
+      <h1 className="font-serif text-5xl text-[var(--segment-12)] leading-tight">{article.title}</h1>
+      <p style={{ marginBottom: '1rem', opacity: 0.7 }} className="text-base text-[var(--sand-10)]">{article.description}</p>
 
       {article.tags.length > 0 && (
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
