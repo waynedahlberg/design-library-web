@@ -4,6 +4,8 @@ import { getAllArticlesForSegment } from '@/lib/content/mdx'
 import { SegmentHeader } from '@/components/layout/SegmentHeader'
 import { ArticleGrid } from '@/components/content/ArticleGrid'
 
+import { Container } from '@/components/layout/Container'
+
 export function generateStaticParams() {
   return SEGMENTS.map((s) => ({ segment: s.slug }))
 }
@@ -34,9 +36,8 @@ export default async function SegmentPage({
   const articles = getAllArticlesForSegment(seg.slug)
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12">
-      <SegmentHeader segment={seg} count={articles.length} />
+    <Container className="py-12">      <SegmentHeader segment={seg} count={articles.length} />
       <ArticleGrid articles={articles} />
-    </div>
+    </Container>
   )
 }

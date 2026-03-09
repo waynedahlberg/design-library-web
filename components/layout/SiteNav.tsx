@@ -8,6 +8,8 @@ import { SEGMENTS } from '@/lib/config/segments'
 import { ThemeToggle } from '@/components/layout/ThemeToggle'
 import { cn } from '@/lib/utils'
 
+import { Container } from './Container'
+
 export function SiteNav() {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -18,7 +20,7 @@ export function SiteNav() {
     <>
       {/* ── Desktop nav ── */}
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--sand-4)] bg-[var(--sand-1)]">
-        <nav className="max-w-7xl mx-auto px-6 h-12 flex items-center justify-between">
+        <Container as="nav" className="h-12 flex items-center justify-between">
           <div className="hidden md:flex items-center gap-8">
             {SEGMENTS.map((seg) => {
               const isActive = pathname.startsWith(`/${seg.slug}`)
@@ -57,7 +59,7 @@ export function SiteNav() {
               <Menu size={20} />
             </button>
           </div>
-        </nav>
+        </Container>
       </header>
 
       {/* ── Mobile menu overlay ── */}

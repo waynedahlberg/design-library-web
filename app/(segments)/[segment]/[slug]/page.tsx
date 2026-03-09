@@ -7,6 +7,8 @@ import { ArticleHeader } from '@/components/content/ArticleHeader'
 import { TagList } from '@/components/content/TagList'
 import { ReferencesSection } from '@/components/content/ReferencesSection'
 
+import { Container } from '@/components/layout/Container'
+
 export function generateStaticParams() {
   return SEGMENTS.flatMap((seg) =>
     getArticleSlugs(seg.slug).map((slug) => ({
@@ -42,7 +44,7 @@ export default async function ArticlePage({
   const article = await getArticle(segment, slug).catch(() => notFound())
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-12">
+    <Container narrow className="py-12">
       <ArticleHeader article={article} />
       <TagList tags={article.tags} />
 
@@ -71,6 +73,6 @@ export default async function ArticlePage({
       )}
 
       <ReferencesSection references={article.references ?? []} />
-    </div>
+    </Container>
   )
 }

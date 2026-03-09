@@ -2,20 +2,21 @@
 
 import { useTheme } from 'next-themes'
 import { Sun, Moon } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme()
-
-  // Avoid hydration mismatch — resolvedTheme is undefined during SSR
-  if (resolvedTheme === undefined) return <div className="w-5 h-5" />
+  // resolvedTheme is undefined on server; use 'dark' as default to match defaultTheme
+  const theme = resolvedTheme ?? 'dark'
 
   return (
-    <button
-      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+    <Button
+      suppressHydrationWarning
+      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       className="text-[var(--sand-9)] hover:text-[var(--sand-12)] transition-colors"
-      aria-label={`Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} mode`}
+      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
     >
-      {resolvedTheme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-    </button>
+      {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+    </Button>
   )
 }
