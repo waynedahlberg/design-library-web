@@ -4,7 +4,6 @@ import { getArticle, getArticleSlugs } from '@/lib/content/mdx'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { mdxComponents } from '@/components/mdx/MDXComponents'
 import { ArticleHeader } from '@/components/content/ArticleHeader'
-import { TagList } from '@/components/content/TagList'
 import { ReferencesSection } from '@/components/content/ReferencesSection'
 import { Container } from '@/components/layout/Container'
 
@@ -46,34 +45,43 @@ export default async function ArticlePage({
     <>
       <ArticleHeader article={article} />
 
-      <Container narrow className="py-16">
-        <TagList tags={article.tags} />
+      <Container fluid className="max-w-[1080px] py-16">
+        {/* ── Two-column on desktop, stacked on mobile ── */}
+        <div className="mt-10 flex flex-col nav:grid nav:grid-cols-[1fr_300px] nav:gap-16">
 
-        {/* ── Prose body ── */}
-        <div className="mb-16">
-          <MDXRemote source={article.content} components={mdxComponents} />
-        </div>
-
-        {/* ── Application blocks ── */}
-        {article.application && article.application.length > 0 && (
-          <section className="mt-16 pt-10 border-t border-[var(--sand-4)]">
-            <h2 className="text-xs uppercase tracking-widest text-[var(--sand-8)] mb-6">
-              Application
+          {/* ── Left: prose body ── */}
+          <div>
+            <h2 className="text-xs uppercase tracking-widest text-[var(--sand-8)] mb-8">
+              Summary
             </h2>
-            <ul className="flex flex-col gap-4">
-              {article.application.map((item, i) => (
-                <li
-                  key={i}
-                  className="text-sm leading-6 text-[var(--sand-10)] border border-[var(--sand-4)] rounded-lg px-5 py-4 bg-[var(--sand-2)]"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
+            <MDXRemote source={article.content} components={mdxComponents} />
+          </div>
 
-        <ReferencesSection references={article.references ?? []} />
+          {/* ── Right: application + references ── */}
+          <div className="flex flex-col gap-12 mt-12 nav:mt-0 nav:pt-[2.125rem]">
+
+            {article.application && article.application.length > 0 && (
+              <section>
+                <h2 className="text-xs uppercase tracking-widest text-[var(--sand-8)] mb-6">
+                  Application
+                </h2>
+                <ul className="flex flex-col gap-4">
+                  {article.application.map((item, i) => (
+                    <li
+                      key={i}
+                      className="text-sm leading-6 text-[var(--sand-10)] border border-[var(--sand-4)] rounded-lg px-5 py-4 bg-[var(--sand-2)]"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            <ReferencesSection references={article.references ?? []} />
+
+          </div>
+        </div>
       </Container>
     </>
   )

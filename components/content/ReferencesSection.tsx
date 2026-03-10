@@ -10,7 +10,7 @@ export function ReferencesSection({ references }: ReferencesSectionProps) {
   if (!references.length) return null
 
   return (
-    <section className="mt-16 pt-10 border-t border-[var(--sand-4)]">
+    <section>
       <h2 className="text-xs uppercase tracking-widest text-[var(--sand-8)] mb-6">
         References
       </h2>

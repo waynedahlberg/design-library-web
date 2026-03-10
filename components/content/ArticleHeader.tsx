@@ -4,6 +4,7 @@ import type { Article } from '@/lib/content/types'
 import { getSegment } from '@/lib/config/segments'
 import { getCoverComponent } from '@/components/covers'
 import { Container } from '@/components/layout/Container'
+import { TagList } from '@/components/content/TagList'
 
 interface ArticleHeaderProps {
   article: Article
@@ -42,6 +43,7 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
             <p className="text-base nav:text-lg text-[var(--segment-10)] leading-7 max-w-lg">
               {article.description}
             </p>
+            <TagList tags={article.tags} className="mt-6" />
           </div>
 
           {/* Illustration column */}

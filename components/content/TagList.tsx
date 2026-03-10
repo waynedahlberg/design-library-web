@@ -1,12 +1,13 @@
 interface TagListProps {
   tags: string[]
+  className?: string
 }
 
-export function TagList({ tags }: TagListProps) {
+export function TagList({ tags, className }: TagListProps) {
   if (!tags.length) return null
 
   return (
-    <div className="flex flex-wrap gap-2 mb-10">
+    <div className={`flex flex-wrap gap-2 ${className ?? ''}`}>
       {tags.map((tag) => (
         <span
           key={tag}
