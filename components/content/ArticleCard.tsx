@@ -13,7 +13,7 @@ export function ArticleCard({ article, className }: ArticleCardProps) {
       href={article.href}
       className={cn(
         'group flex flex-col justify-between',
-        'rounded-lg border border-[var(--sand-4)] bg-[var(--sand-2)]',
+        'bg-[var(--sand-2)]',
         'p-6 min-h-48',
         'hover:border-[var(--segment-7)] hover:bg-[var(--sand-3)]',
         'transition-colors duration-200',
@@ -22,10 +22,10 @@ export function ArticleCard({ article, className }: ArticleCardProps) {
     >
       {/* ── Top: title + description ── */}
       <div>
-        <h2 className="font-serif text-xl text-[var(--sand-12)] mb-2 group-hover:text-[var(--segment-11)] transition-colors">
+        <h2 className="font-sans font-medium text-base tracking-wide text-[var(--sand-12)] mb-2 group-hover:text-[var(--segment-11)] transition-colors">
           {article.title}
         </h2>
-        <p className="text-sm text-[var(--sand-9)] leading-6 line-clamp-3">
+        <p className="text-sm text-[var(--sand-9)] group-hover:text-[var(--sand-11)] leading-6 line-clamp-3">
           {article.description}
         </p>
       </div>

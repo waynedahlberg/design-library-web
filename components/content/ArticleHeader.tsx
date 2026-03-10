@@ -37,7 +37,7 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
             <p className="text-xs uppercase tracking-widest text-[var(--segment-9)] mb-4">
               {segment?.navLabel}
             </p>
-            <h1 className="font-serif text-4xl nav:text-5xl lg:text-6xl text-[var(--segment-12)] leading-tight mb-5">
+            <h1 className="font-display text-4xl nav:text-5xl lg:text-6xl text-[var(--segment-12)] leading-tight mb-5">
               {article.title}
             </h1>
             <p className="text-base nav:text-lg text-[var(--segment-10)] leading-7 max-w-lg">

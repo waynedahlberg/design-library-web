@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
 import { SegmentProvider } from "@/components/providers/SegmentProvider";
 import "./globals.css";
@@ -7,12 +8,32 @@ import "./globals.css";
 import { SiteNav } from "@/components/layout/SiteNav";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 
-const instrumentSerif = Instrument_Serif({
-  subsets: ['latin'],
-  weight: ['400'],
-  style: ['normal', 'italic'],
-  variable: '--font-serif',
+const plantRegular = localFont({
+  src: '../fonts/MartinaPlantijn-Regular.woff2',
+  variable: '--font-plant-regular',
 });
+
+const plantItalic = localFont({
+  src: '../fonts/MartinaPlantijn-Italic.woff2',
+  variable: '--font-plant-italic',
+});
+
+const plantMedium = localFont({
+  src: '../fonts/MartinaPlantijn-Medium.woff2',
+  variable: '--font-plant-medium',
+});
+
+const plantMediumItalic = localFont({
+  src: '../fonts/MartinaPlantijn-MediumItalic.woff2',
+  variable: '--font-plant-medium-italic',
+});
+
+// const instrumentSerif = Instrument_Serif({
+//   subsets: ['latin'],
+//   weight: ['400'],
+//   style: ['normal', 'italic'],
+//   variable: '--font-serif',
+// });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,7 +59,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased`}>
+    <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} ${plantRegular.variable} ${plantItalic.variable} ${plantMedium.variable} ${plantMediumItalic.variable} antialiased`}>
       <body className={geistSans.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" themes={['dark', 'light']}>
           <SegmentProvider>

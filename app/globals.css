@@ -1,7 +1,10 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-serif: var(--font-serif);
+  --font-display: var(--font-plant-regular);
+  --font-display-italic: var(--font-plant-italic);
+  --font-display-medium: var(--font-plant-medium);
+  --font-display-medium-italic: var(--font-plant-medium-italic);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
   --breakpoint-nav: 800px;
