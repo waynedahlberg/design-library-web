@@ -69,7 +69,7 @@ export default async function ArticlePage({
                   {article.application.map((item, i) => (
                     <li
                       key={i}
-                      className="text-sm leading-6 text-[var(--sand-10)] px-5 py-4 bg-[var(--sand-2)]"
+                      className="text-sm leading-6 text-[var(--sand-11)] px-5 py-4 bg-[var(--sand-2)]"
                     >
                       {item}
                     </li>

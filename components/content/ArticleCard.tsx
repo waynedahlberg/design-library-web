@@ -22,7 +22,7 @@ export function ArticleCard({ article, className }: ArticleCardProps) {
     >
       {/* ── Top: title + description ── */}
       <div>
-        <h2 className="font-sans font-medium text-base tracking-wide text-[var(--sand-12)] mb-2 group-hover:text-[var(--segment-11)] transition-colors">
+        <h2 className="font-sans font-medium text-base tracking-wide text-[var(--segment-10)] mb-2 group-hover:text-[var(--segment-11)] transition-colors">
           {article.title}
         </h2>
         <p className="text-sm text-[var(--sand-9)] group-hover:text-[var(--sand-11)] leading-6 line-clamp-3">

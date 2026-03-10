@@ -40,7 +40,7 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
             <h1 className="font-display text-4xl nav:text-5xl lg:text-6xl text-[var(--segment-12)] leading-tight mb-5">
               {article.title}
             </h1>
-            <p className="text-base nav:text-lg text-[var(--segment-10)] leading-7 max-w-lg">
+            <p className="text-base nav:text-lg text-[var(--segment-11)] leading-7 max-w-lg">
               {article.description}
             </p>
             <TagList tags={article.tags} className="mt-6" />

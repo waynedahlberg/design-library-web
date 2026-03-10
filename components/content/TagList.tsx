@@ -11,7 +11,7 @@ export function TagList({ tags, className }: TagListProps) {
       {tags.map((tag) => (
         <span
           key={tag}
-          className="text-[10px] uppercase tracking-widest text-[var(--segment-9)] border border-[var(--segment-6)] rounded px-2.5 py-1"
+          className="text-[10px] uppercase tracking-widest bg-[var(--segment-3)] text-[var(--segment-11)] rounded px-2.5 py-1"
         >
           {tag}
         </span>

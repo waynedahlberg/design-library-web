@@ -7,6 +7,8 @@ export interface CoverProps {
   className?: string;
 }
 
+// Add cover illustrations here for each article
+
 export const coverRegistry: Record<
   string,
   ComponentType<CoverProps>

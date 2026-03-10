@@ -26,13 +26,13 @@ export function SpringTargetDemo() {
     <div
       ref={containerRef}
       onClick={move}
-      className="w-full h-full bg-white rounded-lg flex items-center justify-center cursor-crosshair select-none"
+      className="w-full h-full bg-[var(--sand-2)] rounded-lg flex items-center justify-center cursor-crosshair select-none"
     >
       <motion.div
         animate={{ x: offset.x, y: offset.y }}
         transition={{ type: 'spring', stiffness: 280, damping: 22 }}
         onClick={(e) => { e.stopPropagation(); move() }}
-        className="rounded-full bg-black cursor-pointer"
+        className="rounded-full bg-[var(--segment-9)] cursor-pointer"
         style={{ width: CIRCLE, height: CIRCLE }}
       />
     </div>
