@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import type { Article } from '@/lib/content/types'
 import { getSegment } from '@/lib/config/segments'
-import { getCoverComponent } from '@/components/covers'
+import { coverRegistry } from '@/components/covers'
 import { Container } from '@/components/layout/Container'
 import { TagList } from '@/components/content/TagList'
 
@@ -12,11 +12,11 @@ interface ArticleHeaderProps {
 
 export function ArticleHeader({ article }: ArticleHeaderProps) {
   const segment = getSegment(article.segment)
-  const CoverComponent = getCoverComponent(article.coverKey)
+  const CoverComponent = article.coverKey ? coverRegistry[article.coverKey] : null
 
   return (
     <div className="w-full bg-[var(--segment-4)] pt-12 pb-16">
-      <Container>
+      <Container fluid className="max-w-[1080px] py-0">
 
         {/* ── Back button — visible on desktop, hidden on mobile (nav handles it) ── */}
         <div className="hidden nav:block mb-10">

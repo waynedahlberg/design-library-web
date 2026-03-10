@@ -36,7 +36,8 @@ export default async function SegmentPage({
   const articles = getAllArticlesForSegment(seg.slug)
 
   return (
-    <Container className="py-12">      <SegmentHeader segment={seg} count={articles.length} />
+    <Container fluid className="max-w-[1080px] py-8">
+      <SegmentHeader segment={seg} count={articles.length} />
       <ArticleGrid articles={articles} />
     </Container>
   )

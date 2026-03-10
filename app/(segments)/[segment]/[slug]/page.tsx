@@ -45,9 +45,9 @@ export default async function ArticlePage({
     <>
       <ArticleHeader article={article} />
 
-      <Container fluid className="max-w-[1080px] py-16">
+      <Container fluid className="max-w-[1080px] py-8">
         {/* ── Two-column on desktop, stacked on mobile ── */}
-        <div className="mt-10 flex flex-col nav:grid nav:grid-cols-[1fr_300px] nav:gap-16">
+        <div className="mt-10 flex flex-col nav:grid nav:grid-cols-[1fr_400px] nav:gap-16">
 
           {/* ── Left: prose body ── */}
           <div>
@@ -58,18 +58,18 @@ export default async function ArticlePage({
           </div>
 
           {/* ── Right: application + references ── */}
-          <div className="flex flex-col gap-12 mt-12 nav:mt-0 nav:pt-[2.125rem]">
+          <div className="flex flex-col gap-12 mt-8 sm:mt-0 pt-[2.125rem] sm:pt-0">
 
             {article.application && article.application.length > 0 && (
               <section>
-                <h2 className="text-xs uppercase tracking-widest text-[var(--sand-8)] mb-6">
+                <h2 className="text-xs uppercase tracking-widest text-[var(--sand-8)] mb-8">
                   Application
                 </h2>
                 <ul className="flex flex-col gap-4">
                   {article.application.map((item, i) => (
                     <li
                       key={i}
-                      className="text-sm leading-6 text-[var(--sand-10)] border border-[var(--sand-4)] rounded-lg px-5 py-4 bg-[var(--sand-2)]"
+                      className="text-sm leading-6 text-[var(--sand-10)] px-5 py-4 bg-[var(--sand-2)]"
                     >
                       {item}
                     </li>

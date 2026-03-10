@@ -26,8 +26,8 @@ export function SiteNav() {
   return (
     <>
       {/* ── Nav bar ── */}
-      <header className="fixed top-0 left-0 right-0 z-50">
-        <Container as="nav" className="h-12 flex items-center justify-between">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--segment-4)] backdrop-blur-sm">
+        <Container as="nav" fluid className="max-w-[1080px] py-8">
 
           {/* ── Desktop: segment links centered ── */}
           <div className="hidden nav:flex w-full items-center justify-between">
