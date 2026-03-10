@@ -41,7 +41,7 @@ export function SiteNav() {
                     'text-sm font-normal transition-colors',
                     isActive
                       ? 'text-[var(--segment-12)]'
-                      : 'text-[var(--segment-8)] hover:text-[var(--segment-11)]'
+                      : 'text-[var(--segment-9)] hover:text-[var(--segment-11)]'
                   )}
                 >
                   {seg.navLabel}

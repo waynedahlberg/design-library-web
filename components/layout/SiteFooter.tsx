@@ -5,7 +5,7 @@ import { Container } from './Container'
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-[var(--sand-4)] mt-24">
+    <footer className="bg-[var(--sand-2)] mt-24">
       <Container fluid className="max-w-[1080px] py-8">
         <nav className="flex flex-wrap gap-x-8 gap-y-3 mb-8">
           {SEGMENTS.map((seg) => (
