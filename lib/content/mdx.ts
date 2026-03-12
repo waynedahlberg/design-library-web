@@ -196,34 +196,84 @@ function parseMarkdownChunk(markdown: string): ContentBlock[] {
     }
     if (paragraphLines.length > 0) {
       blocks.push({ type: 'paragraph', text: paragraphLines.join(' ') });
+    } else {
+      // Line didn't match any pattern (e.g. # h1, or malformed). Advance to avoid infinite loop.
+      i++;
     }
   }
 
   return blocks;
 }
 
-// Matches self-closing (<Foo bar="x" />) and multi-line (<Foo>...</Foo>) JSX blocks.
-// Only targets known block-level components; inline JSX is not expected.
-const JSX_BLOCK_RE = /<(\w+)([^>]*?)(?:\/>|>([\s\S]*?)<\/\1>)/g;
+// Find JSX blocks without a single ReDoS-prone regex: use a linear scan to avoid
+// catastrophic backtracking on long or nested content (e.g. in Vercel build).
+const JSX_OPEN_RE = /<(\w+)([^>]*?)(?:\/>|>)/g;
+
+const MAX_CLOSING_TAG_ITERATIONS = 100_000;
+
+function findClosingTag(content: string, tagName: string, afterBracket: number): number {
+  const open = `<${tagName}`;
+  const close = `</${tagName}>`;
+  let depth = 1;
+  let i = afterBracket;
+  let iterations = 0;
+  while (i < content.length && iterations < MAX_CLOSING_TAG_ITERATIONS) {
+    iterations += 1;
+    const nextOpen = content.indexOf(open, i);
+    const nextClose = content.indexOf(close, i);
+    if (nextClose === -1) return -1;
+    if (nextOpen === -1 || nextClose < nextOpen) {
+      depth -= 1;
+      if (depth === 0) return nextClose + close.length;
+      i = nextClose + close.length;
+    } else {
+      depth += 1;
+      i = nextOpen + open.length;
+    }
+  }
+  return -1;
+}
 
 export function parseMdxContent(content: string): ContentBlock[] {
   const blocks: ContentBlock[] = [];
   let lastIndex = 0;
   let match: RegExpExecArray | null;
 
-  JSX_BLOCK_RE.lastIndex = 0;
+  JSX_OPEN_RE.lastIndex = 0;
 
-  while ((match = JSX_BLOCK_RE.exec(content)) !== null) {
-    const [fullMatch, tagName, propsStr, innerContent] = match;
+  while ((match = JSX_OPEN_RE.exec(content)) !== null) {
+    const tagName = match[1];
+    const propsStr = match[2];
+    const fullOpen = match[0];
+    const isSelfClosing = fullOpen.endsWith('/>');
+    const openEnd = match.index + fullOpen.length;
 
     // parse any markdown that appeared before this JSX block
     const before = content.slice(lastIndex, match.index).trim();
     if (before) blocks.push(...parseMarkdownChunk(before));
 
+    let innerContent: string | undefined;
+    let blockEnd: number;
+
+    if (isSelfClosing) {
+      innerContent = undefined;
+      blockEnd = openEnd;
+    } else {
+      const closeEnd = findClosingTag(content, tagName, openEnd);
+      if (closeEnd === -1) {
+        blockEnd = openEnd;
+        innerContent = undefined;
+      } else {
+        innerContent = content.slice(openEnd, closeEnd - `</${tagName}>`.length);
+        blockEnd = closeEnd;
+      }
+    }
+
     const jsxBlock = parseJsxBlock(tagName, propsStr, innerContent);
     if (jsxBlock) blocks.push(jsxBlock);
 
-    lastIndex = match.index + fullMatch.length;
+    lastIndex = blockEnd;
+    JSX_OPEN_RE.lastIndex = blockEnd;
   }
 
   // remaining markdown after the last JSX block
